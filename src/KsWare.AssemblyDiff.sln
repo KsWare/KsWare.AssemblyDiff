@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.AssemblyDiff", "KsWare.AssemblyDiff\KsWare.AssemblyDiff.csproj", "{402E5695-4DAB-4339-9A72-7FF0A9CB28D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.DependencyWalker", "..\..\KsWare.DependencyWalker\src\KsWare.DependencyWalker\KsWare.DependencyWalker.csproj", "{12D3CD72-8458-4D2C-85C4-8EFB8F68B943}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsWare.CodeGenerator", "..\..\KsWare.CodeGenerator\src\KsWare.CodeGenerator\KsWare.CodeGenerator.csproj", "{6E42C707-26AE-46AF-B8D9-B86ACBA59914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{402E5695-4DAB-4339-9A72-7FF0A9CB28D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{402E5695-4DAB-4339-9A72-7FF0A9CB28D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{402E5695-4DAB-4339-9A72-7FF0A9CB28D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D3CD72-8458-4D2C-85C4-8EFB8F68B943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D3CD72-8458-4D2C-85C4-8EFB8F68B943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D3CD72-8458-4D2C-85C4-8EFB8F68B943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D3CD72-8458-4D2C-85C4-8EFB8F68B943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E42C707-26AE-46AF-B8D9-B86ACBA59914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E42C707-26AE-46AF-B8D9-B86ACBA59914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E42C707-26AE-46AF-B8D9-B86ACBA59914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E42C707-26AE-46AF-B8D9-B86ACBA59914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
