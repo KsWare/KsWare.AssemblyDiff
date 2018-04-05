@@ -11,5 +11,8 @@ namespace KsWare.AssemblyDiff.PanelCompare {
 		string NameLeft { get; set; }
 		string NameRight { get; set; }
 		Result Result { get; set; }
+
+		HistoryResult HistoryResult { get; set; }
 	}
+
 }

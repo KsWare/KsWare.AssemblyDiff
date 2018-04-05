@@ -20,6 +20,7 @@ namespace KsWare.AssemblyDiff.PanelCompare {
 		public ICompareResult[] SubResults { get => Fields.GetValue<ICompareResult[]>(); set => Fields.SetValue(value); }
 
 		public Result Result { get => Fields.GetValue<Result>(); set => Fields.SetValue(value); }
+		public HistoryResult HistoryResult { get => Fields.GetValue<HistoryResult>(); set => Fields.SetValue(value); }
 
 		public string Name { get => Fields.GetValue<string>(); set => Fields.SetValue(value); }
 

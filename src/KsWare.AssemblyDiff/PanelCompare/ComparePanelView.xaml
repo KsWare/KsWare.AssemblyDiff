@@ -4,11 +4,14 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:KsWare.DependencyWalker"
 	xmlns:panelCompare="clr-namespace:KsWare.AssemblyDiff.PanelCompare"
 	xmlns:assemblyDiff="clr-namespace:KsWare.AssemblyDiff"
+	xmlns:behaviors="clr-namespace:KsWare.Presentation.ViewFramework.Behaviors;assembly=KsWare.Presentation.ViewFramework"
 	mc:Ignorable="d"
-	d:DesignHeight="450" d:DesignWidth="800">
+	d:DesignHeight="450" d:DesignWidth="800"
+	d:DataContext="{d:DesignInstance Type={x:Type panelCompare:ComparePanelVM}}"
+	behaviors:BusyAdornerBehavior.BindToBusyUserRequest="True"
+	>
 	<UserControl.Resources>
 		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
 		<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>
@@ -118,10 +121,53 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
+
+		<Style x:Key="ResultStyle" TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemStyle1}">
+			<d:Style.DataContext>
+				<x:Type Type="panelCompare:ICompareResult" />
+			</d:Style.DataContext>
+			<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+			<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding Result}" Value="Different">
+					<Setter Property="Background" Value="OrangeRed" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Result}" Value="Equal">
+					<Setter Property="Background" Value="GreenYellow" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Result}" Value="OnlyLeft">
+					<Setter Property="Background" Value="DarkOrange" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding Result}" Value="OnlyRight">
+					<Setter Property="Background" Value="DarkOrange" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+
+		<Style x:Key="HistoryResultStyle" TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemStyle1}">
+			<d:Style.DataContext>
+				<x:Type Type="panelCompare:ICompareResult" />
+			</d:Style.DataContext>
+			<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+			<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+			<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding HistoryResult}" Value="Removed">
+					<Setter Property="Background" Value="#FFBC00" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding HistoryResult}" Value="Changed">
+					<Setter Property="Background" Value="#FFBC00" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding HistoryResult}" Value="Added">
+					<Setter Property="Background" Value="Yellow" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding HistoryResult}" Value="Equal">
+					<Setter Property="Background" Value="LightGreen" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 	</UserControl.Resources>
-	<UserControl.DataContext>
-		<panelCompare:ComparePanelVM />
-	</UserControl.DataContext>
 	<DockPanel>
 		<DockPanel Dock="Top">
 			<Button Content="Compare" Command="{Binding CompareAction}"></Button>
@@ -133,7 +179,7 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<DockPanel Grid.Column="0">
-				<Expander DockPanel.Dock="Top" IsExpanded="True">
+				<Expander Header="Newer assemblies"  DockPanel.Dock="Top" IsExpanded="{Binding IsSelectorExpanded}">
 					<assemblyDiff:Selector DataContext="{Binding SelectorA}" />
 				</Expander>
 				<TreeView x:Name="TreeViewA" ItemsSource="{Binding Items}" ScrollViewer.VerticalScrollBarVisibility="Hidden" >
@@ -152,42 +198,23 @@
 				</TreeView>
 			</DockPanel>
 			<DockPanel Grid.Column="1">
-				<Expander DockPanel.Dock="Top" IsExpanded="True">
+				<Expander DockPanel.Dock="Top" IsExpanded="{Binding IsSelectorExpanded}">
 					<assemblyDiff:Selector DataContext="{Binding SelectorA}" Visibility="Hidden"/>
 				</Expander>
-				<TreeView x:Name="TreeViewC" ItemsSource="{Binding Items}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-					<TreeView.ItemContainerStyle>
-						<Style TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemStyle1}">
-							<d:Style.DataContext><x:Type Type="panelCompare:ICompareResult" /></d:Style.DataContext>
-							<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-							<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding Result}" Value="Different">
-									<Setter Property="Background" Value="OrangeRed"/>
-								</DataTrigger>
-								<DataTrigger Binding="{Binding Result}" Value="Equal">
-									<Setter Property="Background" Value="GreenYellow" />
-								</DataTrigger>
-								<DataTrigger Binding="{Binding Result}" Value="OnlyLeft">
-									<Setter Property="Background" Value="DarkOrange" />
-								</DataTrigger>
-								<DataTrigger Binding="{Binding Result}" Value="OnlyRight">
-									<Setter Property="Background" Value="DarkOrange" />
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</TreeView.ItemContainerStyle>
+				<TreeView x:Name="TreeViewC" ItemsSource="{Binding Items}" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+				          ItemContainerStyle="{StaticResource HistoryResultStyle}"
+				          >
+
 					<TreeView.ItemTemplate>
 						<HierarchicalDataTemplate ItemsSource="{Binding SubResults}">
-							<TextBlock Text="{Binding Result}" HorizontalAlignment="Center"/>
+							<TextBlock Text="{Binding HistoryResult}" HorizontalAlignment="Center"/>
 						</HierarchicalDataTemplate>
 					</TreeView.ItemTemplate>
 <!--					<TreeViewItem Style="{DynamicResource TreeViewItemStyle1}">A</TreeViewItem>-->
 				</TreeView>
 			</DockPanel>
 			<DockPanel Grid.Column="2">
-				<Expander DockPanel.Dock="Top" IsExpanded="True">
+				<Expander Header="Older assemblies" DockPanel.Dock="Top" IsExpanded="{Binding IsSelectorExpanded}">
 					<assemblyDiff:Selector DataContext="{Binding SelectorB}" />
 				</Expander>
 				<TreeView x:Name="TreeViewB" ItemsSource="{Binding Items}">

@@ -6,9 +6,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:KsWare.AssemblyDiff"
     xmlns:panelCompare="clr-namespace:KsWare.AssemblyDiff.PanelCompare"
+    xmlns:resources="clr-namespace:KsWare.Presentation.ViewFramework.Resources;assembly=KsWare.Presentation.ViewFramework"
+    xmlns:ksv="http://ksware.de/Presentation/ViewFramework"
+    xmlns:kslab="http://ksware.de/Presentation/Labs"
     mc:Ignorable="d"
-    Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <panelCompare:ComparePanelView/>
-    </Grid>
+    Title="Assembly Diff" Height="450" Width="800"
+	d:DataContext="{d:DesignInstance Type={x:Type local:MainWindowVM}}"
+>
+	<FrameworkElement.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<kslab:DesigntimeResourceDictionary Source="pack://application:,,,/KsWare.AssemblyDiff;component/Resources/AppResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</FrameworkElement.Resources>
+    <DockPanel>
+		<Menu DockPanel.Dock="Top" ItemsSource="{Binding MenuItems}" ItemContainerStyle="{StaticResource MenuItemVMStyle}"/>
+		<panelCompare:ComparePanelView DataContext="{Binding ComparePanel}"/>
+    </DockPanel>
 </Window>
+
+
+

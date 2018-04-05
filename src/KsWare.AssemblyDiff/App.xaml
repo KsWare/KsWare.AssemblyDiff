@@ -1,9 +1,43 @@
-﻿<Application x:Class="KsWare.AssemblyDiff.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:KsWare.AssemblyDiff"
-             StartupUri="MainWindow.xaml">
+﻿<ksv:ViewModelApplication
+	x:TypeArguments="local:AppVM" 
+	x:Class="KsWare.AssemblyDiff.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:KsWare.AssemblyDiff"
+    xmlns:ksv="http://ksware.de/Presentation/ViewFramework"
+>
     <Application.Resources>
-         
+		<ResourceDictionary Source="pack://application:,,,/KsWare.AssemblyDiff;component/Resources/AppResources.xaml" />
     </Application.Resources>
-</Application>
+</ksv:ViewModelApplication>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

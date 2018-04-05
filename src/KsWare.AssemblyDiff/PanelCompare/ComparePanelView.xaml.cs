@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace KsWare.AssemblyDiff.PanelCompare {
+
 	/// <summary>
 	/// Interaction logic for ComparePanelView.xaml
 	/// </summary>
@@ -36,7 +38,8 @@ namespace KsWare.AssemblyDiff.PanelCompare {
 		}
 
 		private void ScrollChanged(object sender, ScrollChangedEventArgs e) {
-			if (e.VerticalOffset > 0) {
+			var o = (ScrollViewer) sender;
+			if (e.VerticalOffset >= 0) {
 				if (sender == _scrollViewerA) {
 					_scrollViewerB.ScrollToVerticalOffset(e.VerticalOffset);
 					_scrollViewerC.ScrollToVerticalOffset(e.VerticalOffset);
